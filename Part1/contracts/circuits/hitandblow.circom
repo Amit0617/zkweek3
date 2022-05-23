@@ -67,9 +67,9 @@ template HitAndBlow() {
             equalHB[4*j+k] = IsEqual();
             equalHB[4*j+k].in[0] <== soln[j];
             equalHB[4*j+k].in[1] <== guess[k];
-            blow += equalHB[4*j+k].out;
+            blow += equalHB[4*j+k].out;         // When any of the guess is matching
             if (j == k) {
-                hit += equalHB[4*j+k].out;
+                hit += equalHB[4*j+k].out;      // When guess is at same position as of soln
                 blow -= equalHB[4*j+k].out;
             }
         }

@@ -9,9 +9,10 @@ import {
 
 describe('ECDH test', () => {
   let eddsa: EdDSA;
+  
   beforeAll(async () => {
     eddsa = await buildEddsaModule();
-  }, 15000);
+  }, 40000);
 
   it('should encrypt/decrypt text', async () => {
     const { privKey: bobPrivKey, pubKey: bobPubKey } = genKeypair(eddsa);
@@ -26,7 +27,7 @@ describe('ECDH test', () => {
     for (let i = 0; i < 5; i++) {
       aliceMessage.push(BigInt(Math.floor(Math.random() * 50)));
     }
-    //console.log('plaintext:', aliceMessage);
+    // console.log('plaintext:', aliceMessage);
     // Alice encrypt with her private key and bob pubkey
     const ciphertext = await encrypt(aliceMessage, ecdhSharedKey);
 
@@ -38,7 +39,7 @@ describe('ECDH test', () => {
     });
     const decryptedMessage = await decrypt(ciphertext, ecdhbobSharedKey);
     expect(decryptedMessage).toStrictEqual(aliceMessage);
-  });
+  }, 30000);
 
   it('should fail if decrypted with incorrect public key', async () => {
     const { privKey: bobPrivKey, pubKey: bobPubKey } = genKeypair(eddsa);
@@ -54,7 +55,7 @@ describe('ECDH test', () => {
     for (let i = 0; i < 5; i++) {
       aliceMessage.push(BigInt(Math.floor(Math.random() * 50)));
     }
-    //console.log('plaintext:', aliceMessage);
+    // console.log('plaintext:', aliceMessage);
     // Alice encrypt with her private key and bob pubkey
     const ciphertext = await encrypt(aliceMessage, ecdhSharedKey);
 
@@ -67,5 +68,5 @@ describe('ECDH test', () => {
 
     const decryptedMessage = await decrypt(ciphertext, ecdhSharedIncorrectKey);
     expect(decryptedMessage).not.toEqual(aliceMessage);
-  });
+  }, 30000);
 });
